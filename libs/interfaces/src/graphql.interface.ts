@@ -7,20 +7,27 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export interface Policy {
-    id?: Nullable<string>;
-    name?: Nullable<string>;
-    statement?: Nullable<JSONObject>;
-}
-
-export interface User {
-    id?: Nullable<string>;
-    name?: Nullable<string>;
-    email?: Nullable<string>;
+export interface Auth {
+    access_token?: Nullable<string>;
+    user?: Nullable<User>;
     role?: Nullable<Policy>;
 }
 
+export interface User {
+    email?: Nullable<string>;
+    id?: Nullable<string>;
+    name?: Nullable<string>;
+    role?: Nullable<Policy>;
+}
+
+export interface Policy {
+    name?: Nullable<string>;
+    id?: Nullable<string>;
+    statement?: Nullable<JSONObject>;
+}
+
 export interface IQuery {
+    signIn(email: string, password: string): Auth | Promise<Auth>;
     policy(id: string): Nullable<Policy> | Promise<Nullable<Policy>>;
     user(id: string): Nullable<User> | Promise<Nullable<User>>;
 }

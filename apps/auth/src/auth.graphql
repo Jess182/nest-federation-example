@@ -1,0 +1,20 @@
+type Auth {
+  access_token: String
+  user: User
+  role: Policy
+}
+
+extend type User @key(fields: "email") {
+  email: String @external
+}
+
+extend type Policy @key(fields: "name") {
+  name: String @external
+}
+
+extend type Mutation {
+  """
+  sign in user
+  """
+  signIn(email: String!, password: String!): Auth!
+}
