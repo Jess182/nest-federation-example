@@ -1,3 +1,5 @@
+directive @auth(roles: [String]) on OBJECT | FIELD_DEFINITION
+
 type User @key(fields: "id") @key(fields: "email") {
   id: ID
   name: String
