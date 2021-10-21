@@ -22,7 +22,7 @@ export class AuthService {
       },
     };
 
-    const access_token: string = this.generateAccessToken(user, 'auth');
+    const access_token: string = this.generateAccessToken(user);
 
     return {
       access_token,
