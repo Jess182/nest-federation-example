@@ -7,7 +7,7 @@ export class PoliciesResolver {
   constructor(private readonly policiesService: PoliciesService) {}
 
   @Query('policy')
-  findOne(@Args('id') id: string): Promise<IPolicy> {
+  findOne(@Args('id') id: string): Promise<Policy> {
     return this.policiesService.findOne(id);
   }
 

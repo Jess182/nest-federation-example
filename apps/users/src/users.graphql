@@ -1,0 +1,17 @@
+type User @key(fields: "id") @key(fields: "email") {
+  id: ID
+  name: String
+  email: String
+  role: Policy
+}
+
+extend type Policy @key(fields: "name") {
+  name: String @external
+}
+
+extend type Query {
+  """
+  get user
+  """
+  user(id: ID!): User
+}
