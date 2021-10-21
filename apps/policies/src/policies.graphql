@@ -1,0 +1,14 @@
+scalar JSONObject
+
+type Policy @key(fields: "id") @key(fields: "name") {
+  id: ID
+  name: String
+  statement: JSONObject
+}
+
+extend type Query {
+  """
+  get policy
+  """
+  policy(id: ID!): Policy
+}

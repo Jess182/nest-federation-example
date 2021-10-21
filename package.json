@@ -1,5 +1,5 @@
 {
-  "name": "graphql-federatation-example",
+  "name": "nest-federation-example",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -18,15 +18,23 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/gateway/test/jest-e2e.json",
+    "generate:graphql-typings": "ts-node ./scripts/generate-graphql-typings.ts",
+    "generate:graphql-typings:dev": "ts-node ./scripts/generate-graphql-typings.ts --watch"
   },
   "dependencies": {
+    "@apollo/federation": "^0.33.3",
+    "@apollo/gateway": "^0.42.3",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
+    "@nestjs/graphql": "^9.1.1",
     "@nestjs/platform-express": "^8.0.0",
+    "apollo-server-express": "^3.4.0",
+    "graphql": "^15.6.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "ts-morph": "^12.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
@@ -56,7 +64,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -64,7 +72,14 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^@app/interfaces(|/.*)$": "<rootDir>/libs/interfaces/src/$1"
+    }
   }
 }
